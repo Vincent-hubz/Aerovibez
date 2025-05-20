@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kids' Sale - Streetwear Fashion</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Reusing the same styles from sale.html */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-container input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333;
+    }
+
+    .search-container i {
+      color: #666;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Navigation */
+    .navigation {
+      background-color: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-links a.active {
+      color: #ff3e3e;
+      font-weight: bold;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 30px 0;
+      background: #fff;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .page-title h1 {
+      font-size: 28px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Sale Banner */
+    .sale-banner {
+      background: linear-gradient(to right, #ff3e3e, #ff7070);
+      color: #fff;
+      padding: 15px 0;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sale-banner h2 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .sale-banner p {
+      font-size: 16px;
+    }
+
+    /* Main Content */
+    .main-content {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Filters Sidebar */
+    .filters {
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .filter-option {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .filter-option input[type="checkbox"],
+    .filter-option input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .sale-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff3e3e;
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .quick-view-btn {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2;
+      text-decoration: none;
+    }
+
+    .add-to-cart-btn {
+      display: block;
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 0;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #333;
+    }
+
+    .size-option {
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-option.selected {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    .product-brand {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin: 8px 0;
+    }
+
+    .stars {
+      color: #ffd700;
+      font-size: 14px;
+    }
+
+    .review-count {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .price-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .original-price {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 14px;
+    }
+
+    .current-price {
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .discount {
+      color: #ff3e3e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+
+    /* Responsive styles */
+    @media screen and (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .left-icons {
+        gap: 15px;
+        order: 1;
+      }
+
+      .right-icons {
+        gap: 15px;
+        order: 2;
+      }
+
+      .icon-container {
+        gap: 4px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .icon-container i {
+        font-size: 18px !important;
+      }
+
+      .search-container {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0 0 0;
+        padding: 8px 15px;
+      }
+
+      .search-container input {
+        font-size: 14px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff3e3e;
+        color: white;
+        font-size: 10px;
+        padding: 2px 5px;
+        border-radius: 50%;
+        min-width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .navigation {
+        padding: 8px 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-links {
+        gap: 10px;
+        font-size: 12px;
+        padding: 0 5px;
+      }
+
+      /* Mobile Product Grid */
+      .main-content {
+        flex-direction: column;
+        padding: 10px;
+        gap: 15px;
+      }
+
+      .filters {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 15px;
+      }
+
+      .filter-section {
+        margin-bottom: 15px;
+      }
+
+      .filter-option {
+        margin: 8px 0;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0;
+      }
+
+      .product-card {
+        padding: 10px;
+        margin: 0;
+      }
+
+      .product-image {
+        height: 140px;
+        object-fit: cover;
+      }
+
+      .product-name {
+        font-size: 12px;
+        margin: 8px 0;
+      }
+
+      .product-brand {
+        font-size: 10px;
+        margin-bottom: 4px;
+      }
+
+      .price-container {
+        font-size: 12px;
+        margin: 6px 0;
+      }
+
+      .add-to-cart-btn {
+        font-size: 12px;
+        padding: 8px 0;
+        margin-top: 8px;
+      }
+
+      .product-variations {
+        margin: 8px 0;
+      }
+
+      .variation-title {
+        font-size: 11px;
+        margin: 4px 0;
+      }
+
+      .size-option {
+        font-size: 11px;
+        padding: 4px 8px;
+      }
+
+      .color-option {
+        width: 16px;
+        height: 16px;
+        margin: 0 4px;
+      }
+
+      .quick-view-btn {
+        font-size: 11px;
+        padding: 6px 12px;
+      }
+
+      .page-title {
+        padding: 20px 15px;
+      }
+
+      .page-title h1 {
+        font-size: 24px;
+      }
+
+      .page-title p {
+        font-size: 13px;
+      }
+    }
+
+    /* Additional mobile optimizations for very small screens */
+    @media screen and (max-width: 360px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card {
+        max-width: 280px;
+        margin: 0 auto;
+      }
+
+      .product-image {
+        height: 180px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .header {
+        padding: 8px 10px;
+      }
+
+      .left-icons {
+        gap: 10px;
+      }
+
+      .right-icons {
+        gap: 10px;
+      }
+
+      .icon-container img {
+        max-height: 16px;
+      }
+
+      .icon-container span {
+        font-size: 8px;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card img {
+        height: 200px;
+      }
+
+      .filter-section h3 {
+        font-size: 12px;
+      }
+
+      .filter-option {
+        font-size: 12px;
+      }
+
+      .navigation {
+        padding: 8px 10px;
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+      }
+
+      .sale-banner h2 {
+        font-size: 18px;
+      }
+
+      .sale-banner p {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="left-icons">
+      <a href="#" class="icon-container menu-icon-container">
+        <i class="fas fa-bars menu-icon" style="color: #fff; font-size: 20px;"></i>
+        <span>Menu</span>
+      </a>
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" placeholder="Search for products...">
+      <i class="fas fa-search" style="font-size: 18px;"></i>
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Profile</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="navigation">
+    <div class="nav-links">
+      <a href="kids_new_arrival.html">New Arrival</a> |
+      <a href="kids_clothing.html">Clothing</a> |
+      <a href="kids_accessories.html">Accessories</a> |
+      <a href="kids_shoes.html">Shoes</a> |
+      <a href="kids_sale.html" class="active">Sale</a>
+    </div>
+  </nav>
+
+  <div class="sale-banner">
+    <h2>KIDS CLEARANCE SALE!</h2>
+    <p>Up to 50% off on selected items. Limited time only!</p>
+  </div>
+
+  <div class="page-title">
+    <h1>Kids' Sale</h1>
+    <p>Great deals on kids' fashion and accessories</p>
+  </div>
+
+  <main class="main-content">
+    <aside class="filters">
+      <div class="filter-section">
+        <h3>Category</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Tops & T-shirts</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Bottoms</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Outerwear</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Shoes</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Accessories</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Brand</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Gap Kids</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>H&M Kids</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Uniqlo Kids</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Nike Kids</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Adidas Kids</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Discount</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>20% off</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>30% off</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>40% off</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>50% off & above</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Size</h3>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>2T-3T</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>4T-5T</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>6-7Y</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>8-10Y</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>12-14Y</label>
+        </div>
+      </div>
+    </aside>
+
+    <div class="product-grid">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="sale-badge">-40%</div>
+        <img src="https://dynamic.zacdn.com/Wy89FaBQU0YLEcTSkXdHXOky_1I=/filters:quality(70):format(webp)/https://static-ph.zacdn.com/p/m-latin-9812-7392813-1.jpg" alt="Kids T-shirt" class="product-image">
+        <div class="product-brand">H&M Kids</div>
+        <div class="product-name">Graphic Print T-shirt</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(32)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱499.00</span>
+          <span class="current-price">₱299.00</span>
+          <span class="discount">-40%</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">4-5Y</span>
+          <span class="size-option">6-7Y</span>
+          <span class="size-option">8-9Y</span>
+          <span class="size-option">10-12Y</span>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+        <a href="/products/hm-kids-tshirt/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="sale-badge">-30%</div>
+        <img src="https://image.hm.com/assets/hm/a3/98/a398e742609972e41977d4eb2631da0013394aea.jpg?imwidth=1536" alt="Kids Jeans" class="product-image">
+        <div class="product-brand">Gap Kids</div>
+        <div class="product-name">Slim Jeans with Stretch</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(47)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱1,290.00</span>
+          <span class="current-price">₱903.00</span>
+          <span class="discount">-30%</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">4-5Y</span>
+          <span class="size-option">6-7Y</span>
+          <span class="size-option">8-9Y</span>
+          <span class="size-option">10-12Y</span>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+        <a href="/products/gap-kids-jeans/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="sale-badge">-50%</div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1M3hFTYfukIESwtecLj8eqrYRQQAzNXHYXw&s" alt="Kids Hoodie" class="product-image">
+        <div class="product-brand">Uniqlo Kids</div>
+        <div class="product-name">Sweat Pullover Hoodie</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(28)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱990.00</span>
+          <span class="current-price">₱495.00</span>
+          <span class="discount">-50%</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">4-5Y</span>
+          <span class="size-option">6-7Y</span>
+          <span class="size-option">8-9Y</span>
+          <span class="size-option">10-12Y</span>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+        <a href="/products/uniqlo-kids-hoodie/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="sale-badge">-25%</div>
+        <img src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/185ef050-a63b-41e8-af81-cef71ba54ce6/NIKE+DYNAMO+GO+%28PS%29.png" alt="Kids Nike Shoes" class="product-image">
+        <div class="product-brand">Nike Kids</div>
+        <div class="product-name">Dynamo Go Slip-On</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(59)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱2,895.00</span>
+          <span class="current-price">₱2,171.00</span>
+          <span class="discount">-25%</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">US 11K</span>
+          <span class="size-option">US 12K</span>
+          <span class="size-option">US 13K</span>
+          <span class="size-option">US 1Y</span>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+        <a href="/products/nike-kids-dynamo/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="sale-badge">-40%</div>
+        <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/266037ae34484f12b52cdbd4a033f3b3_9366/Superstar_360_Shoes_Kids_White_IG7014_01_standard.jpg" alt="Kids Adidas Shoes" class="product-image">
+        <div class="product-brand">Adidas Kids</div>
+        <div class="product-name">Superstar 360 Shoes</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(41)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱2,800.00</span>
+          <span class="current-price">₱1,680.00</span>
+          <span class="discount">-40%</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">US 10K</span>
+          <span class="size-option">US 11K</span>
+          <span class="size-option">US 12K</span>
+          <span class="size-option">US 13K</span>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+        <a href="/products/adidas-kids-superstar/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card">
+        <div class="sale-badge">-35%</div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzw__pwmX9BgqxOosREOWWdx3ucbWKMndTYQ&s" alt="Lunch Box" class="product-image">
+        <div class="product-brand">Skip Hop</div>
+        <div class="product-name">Zoo Lunch Box</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(52)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱799.00</span>
+          <span class="current-price">₱519.00</span>
+          <span class="discount">-35%</span>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+        <a href="/products/skiphop-lunchbox/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="product-card">
+        <div class="sale-badge">-30%</div>
+        <img src="https://shop.mango.com/assets/rcs/pics/static/T8/fotos/S/87004400_74.jpg?imwidth=2048&imdensity=1&ts=1737113682066" alt="Kids Sunglasses" class="product-image">
+        <div class="product-brand">Gap Kids</div>
+        <div class="product-name">Heart-Shaped Sunglasses</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(23)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱499.00</span>
+          <span class="current-price">₱349.00</span>
+          <span class="discount">-30%</span>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+        <a href="/products/gap-kids-sunglasses/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 8 -->
+      <div class="product-card">
+        <div class="sale-badge">-45%</div>
+        <img src="https://assets.digitalcontent.marksandspencer.app/images/w_1024,q_auto,f_auto/SD_04_T72_3064Y_J0_X_EC_0/Kids-Pure-Cotton-Baseball-Cap-1-13-Yrs-" alt="Kids Baseball Cap" class="product-image">
+        <div class="product-brand">H&M Kids</div>
+        <div class="product-name">Cotton Baseball Cap</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(32)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱399.00</span>
+          <span class="current-price">₱219.00</span>
+          <span class="discount">-45%</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">One Size</span>
+        </div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+        <a href="/products/hm-kids-cap/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="#">Data Collection & Usage</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Returns Policy</a>
+        <a href="#">Payment Methods</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="notification" class="notification"></div>
+
+  <script src="unified_cart.js"></script>
+  <script src="javascript_sidebar.js"></script>
+</body>
+</html> 

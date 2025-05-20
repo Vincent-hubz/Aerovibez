@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Homepage</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .left-logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .left-logo img {
+      height: 45px;
+      width: auto;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .icon-container img {
+      max-height: 20px;
+      width: auto;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Cart count styling */
+    .cart-count {
+      background-color: #ff3e3e;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+    }
+
+    .logo-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 500px;
+      margin: 0 30px;
+    }
+    
+    .logo-container img {
+      height: 60px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Banner Section */
+    .banner-section {
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .top-banner {
+      width: 100%;
+      display: flex;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+    
+    .banner-item {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .banner-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .banner-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .shop-now-btn {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px 20px;
+      border: 2px solid white;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      letter-spacing: 1px;
+    }
+    
+    .banner-item:hover .shop-now-btn {
+      opacity: 1;
+      bottom: 40px;
+    }
+    
+    .shop-now-btn:hover {
+      background-color: white;
+      color: black;
+    }
+    
+    .bottom-banner {
+      width: 100%;
+      height: 750px;
+      display: flex;
+      position: relative;
+      background-color: #f8f8f8;
+    }
+    
+    .bottom-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .brand-title {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+    
+    .brand-shop-now {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      color: white;
+      padding: 12px 40px;
+      border: 2px solid white;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 2px;
+    }
+    
+    .brand-shop-now:hover {
+      background-color: white;
+      color: black;
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+
+    /* Responsive styles */
+    @media screen and (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+      }
+
+      .left-icons {
+        gap: 15px;
+      }
+
+      .left-logo img {
+        height: 35px;
+      }
+
+      .logo-container {
+        order: 3;
+        width: 100%;
+        margin: 10px 0 0 0;
+      }
+
+      .logo-container img {
+        height: 40px;
+      }
+
+      .right-icons {
+        gap: 15px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .top-banner {
+        height: 200px;
+      }
+
+      .shop-now-btn {
+        padding: 8px 15px;
+        font-size: 12px;
+        bottom: 20px;
+      }
+
+      .banner-item:hover .shop-now-btn {
+        bottom: 25px;
+      }
+
+      .bottom-banner {
+        height: 500px;
+      }
+
+      .brand-title {
+        font-size: 24px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .header {
+        padding: 8px 10px;
+      }
+
+      .left-icons {
+        gap: 10px;
+      }
+
+      .right-icons {
+        gap: 10px;
+      }
+
+      .icon-container img {
+        max-height: 16px;
+      }
+
+      .icon-container span {
+        font-size: 8px;
+      }
+
+      .left-logo img {
+        height: 30px;
+      }
+
+      .logo-container img {
+        height: 35px;
+      }
+
+      .top-banner {
+        height: 150px;
+      }
+
+      .shop-now-btn {
+        padding: 6px 12px;
+        font-size: 10px;
+        bottom: 15px;
+      }
+
+      .banner-item:hover .shop-now-btn {
+        bottom: 20px;
+      }
+
+      .bottom-banner {
+        height: 400px;
+      }
+
+      .brand-title {
+        font-size: 20px;
+      }
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background-color: #000;
+      color: white;
+      padding: 20px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #333;
+    }
+
+    .sidebar-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 15px;
+    }
+
+    .sidebar-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: block;
+      padding: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: #333;
+      padding-left: 15px;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .sidebar-overlay.active {
+      display: block;
+    }
+
+    @media screen and (max-width: 768px) {
+      .sidebar {
+        width: 280px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .sidebar {
+        width: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Add sidebar structure -->
+  <div class="sidebar-overlay"></div>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+      <button class="sidebar-close">&times;</button>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="homepage1.html">Home</a></li>
+      <li><a href="main_shop.html">Shop</a></li>
+      <li><a href="blogpage.html">Blog</a></li>
+      <li><a href="privacy_policy.html">Privacy Policy</a></li>
+      <li><a href="account.html">My Account</a></li>
+      <li><a href="CART_PAGE.html">Cart</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </div>
+
+  <header class="header">
+    <div class="left-icons">
+      <div class="left-logo">
+        <img src="logo.png" alt="Aerovibe Logo" style="height: 45px; width: auto;">
+      </div>
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    
+    <div class="logo-container">
+      <img src="image-removebg-preview.png" alt="Aerovibe Logo">
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="banner-section">
+      <div class="top-banner">
+        <div class="banner-item">
+          <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22" alt="Men's Fashion" />
+          <a href="new_arrival.html"><button class="shop-now-btn">Shop Now</button></a>
+          <div style="position: absolute; top: 20px; left: 20px; background-color: rgba(0,0,0,0.7); padding: 5px 15px; color: white; font-weight: bold;">MEN'S FASHION</div>
+        </div>
+        <div class="banner-item">
+          <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03" alt="Women's Fashion" />
+          <a href="womens_new_arrival.html"><button class="shop-now-btn">Shop Now</button></a>
+          <div style="position: absolute; top: 20px; left: 20px; background-color: rgba(0,0,0,0.7); padding: 5px 15px; color: white; font-weight: bold;">WOMEN'S FASHION</div>
+        </div>
+        <div class="banner-item">
+          <img src="https://images.unsplash.com/photo-1514090458221-65bb69cf63e6" alt="Kids Fashion" />
+          <a href="kids_new_arrival.html"><button class="shop-now-btn">Shop Now</button></a>
+          <div style="position: absolute; top: 20px; left: 20px; background-color: rgba(0,0,0,0.7); padding: 5px 15px; color: white; font-weight: bold;">KIDS FASHION</div>
+        </div>
+      </div>
+      
+      <div class="bottom-banner">
+        <div style="position: relative; width: 100%;">
+          <img src="Homepage.jpg" />
+          <button class="brand-shop-now">Shop Collection</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="privacy_policy.html">Data Collection & Usage</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Email Us</a>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">About Store</a>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Shipping Delivery</a>
+        <a href="#">Payment Methods</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="homepage.js"></script>
+  <script>
+    // Sidebar functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuIcon = document.querySelector('.menu-icon-container');
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarOverlay = document.querySelector('.sidebar-overlay');
+      const closeButton = document.querySelector('.sidebar-close');
+
+      function toggleSidebar() {
+        sidebar.classList.toggle('active');
+        sidebarOverlay.classList.toggle('active');
+        document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+      }
+
+      menuIcon.addEventListener('click', toggleSidebar);
+      closeButton.addEventListener('click', toggleSidebar);
+      sidebarOverlay.addEventListener('click', toggleSidebar);
+
+      // Close sidebar when clicking a menu item on mobile
+      const menuItems = document.querySelectorAll('.sidebar-menu a');
+      menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+          if (window.innerWidth <= 768) {
+            toggleSidebar();
+          }
+        });
+      });
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && sidebar.classList.contains('active')) {
+          toggleSidebar();
+        }
+      });
+    });
+  </script>
+</body>
+</html> 

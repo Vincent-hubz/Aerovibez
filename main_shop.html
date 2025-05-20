@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Main Shop - Streetwear Fashion</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-container input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333;
+    }
+
+    .search-container i {
+      color: #666;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Navigation */
+    .navigation {
+      background-color: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-links a.active {
+      color: #ff3e3e;
+      font-weight: bold;
+    }
+
+    /* Category Navigation */
+    .category-nav {
+      display: flex;
+      justify-content: center;
+      background-color: #f8f8f8;
+      padding: 12px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .category-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .category-links a {
+      color: #333;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .category-links a.active {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .category-links a:hover {
+      background-color: #eee;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 30px 0;
+      background: #fff;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .page-title h1 {
+      font-size: 28px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Featured Categories */
+    .featured-categories {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .category-heading {
+      font-size: 22px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Main Content */
+    .main-content {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Filters Sidebar */
+    .filters {
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .filter-option {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .filter-option input[type="checkbox"],
+    .filter-option input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .quick-view-btn {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2;
+      text-decoration: none;
+    }
+
+    .add-to-cart-btn {
+      display: block;
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 0;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #333;
+    }
+
+    .size-option {
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-option.selected {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    .product-brand {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin: 8px 0;
+    }
+
+    .stars {
+      color: #ffd700;
+      font-size: 14px;
+    }
+
+    .review-count {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .price-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .original-price {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 14px;
+    }
+
+    .current-price {
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .discount {
+      color: #ff3e3e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Badges */
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .new-badge {
+      background: #ff3e3e;
+      color: #fff;
+    }
+
+    .sale-badge {
+      background: #ff3e3e;
+      color: #fff;
+    }
+
+    /* Gender Badge */
+    .gender-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .mens-badge {
+      background: #3e4aff;
+      color: #fff;
+    }
+
+    .womens-badge {
+      background: #ff3e9e;
+      color: #fff;
+    }
+
+    .kids-badge {
+      background: #3ec9ff;
+      color: #fff;
+    }
+
+    /* View More Button */
+    .view-more-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .view-more-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+
+    .view-more-btn:hover {
+      background: #333;
+    }
+
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+
+    /* Buy Now button */
+    .buy-now-btn {
+      margin-top: 5px;
+      background: #ff3e3e;
+    }
+    
+    .buy-now-btn:hover {
+      background: #e63030;
+    }
+
+    /* Mobile Header Styles */
+    @media (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+      }
+
+      .left-icons {
+        gap: 15px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .search-container {
+        margin: 0 15px;
+        padding: 6px 12px;
+      }
+
+      .right-icons {
+        gap: 15px;
+      }
+
+      .icon-container i {
+        font-size: 18px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .header {
+        padding: 8px 10px;
+      }
+
+      .left-icons {
+        gap: 10px;
+      }
+
+      .right-icons {
+        gap: 10px;
+      }
+
+      .icon-container img {
+        max-height: 16px;
+      }
+
+      .icon-container span {
+        font-size: 8px;
+      }
+
+      .category-links {
+        gap: 10px;
+      }
+
+      .category-links a {
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card img {
+        height: 200px;
+      }
+
+      .filter-section h3 {
+        font-size: 12px;
+      }
+
+      .filter-option {
+        font-size: 12px;
+      }
+
+      .navigation {
+        padding: 8px 10px;
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+      }
+
+      .category-heading {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="left-icons">
+      <a href="#" class="icon-container menu-icon-container">
+        <i class="fas fa-bars menu-icon" style="color: #fff; font-size: 20px;"></i>
+        <span>Menu</span>
+      </a>
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" placeholder="Search for products...">
+      <i class="fas fa-search" style="font-size: 18px;"></i>
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container" style="position: relative;">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+        <span class="cart-count" style="position: absolute; top: -5px; right: -5px; background-color: #ff3e3e; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 12px; display: none; justify-content: center; align-items: center; font-weight: bold;">0</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="category-nav">
+    <div class="category-links">
+      <a href="main_shop.html" class="active">All Products</a>
+      <a href="new_arrival.html">Men's</a>
+      <a href="womens_new_arrival.html">Women's</a>
+      <a href="kids_new_arrival.html">Kids'</a>
+    </div>
+  </nav>
+  
+  <div class="page-title">
+    <h1>All Products</h1>
+    <p>Discover our complete collection of streetwear fashion</p>
+  </div>
+
+  <main class="main-content">
+    <aside class="filters">
+      <div class="filter-section">
+        <h3>Department</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Men's</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Women's</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Kids'</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Category</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>New Arrivals</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Clothing</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Accessories</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Shoes</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Sale</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Brand</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Nike</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Adidas</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Penshoppe</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Gap Kids</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>H&M</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Other Brands</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Price Range</h3>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Under ₱500</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱500 - ₱1,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱1,000 - ₱3,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Over ₱3,000</label>
+        </div>
+      </div>
+    </aside>
+
+    <div class="product-grid">
+      <!-- Men's Product 1 -->
+      <div class="product-card" data-product-id="product-1">
+        <div class="gender-badge mens-badge">Men's</div>
+        <div class="badge new-badge">NEW</div>
+        <img src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/480144/item/phgoods_00_480144_3x4.jpg?width=294" alt="Graphic Tee" class="product-image">
+        <div class="product-brand">Penshoppe</div>
+        <div class="product-name">Limited Edition Graphic Tee</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(12)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱599.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">S</span>
+          <span class="size-option">M</span>
+          <span class="size-option">L</span>
+          <span class="size-option">XL</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Women's Product -->
+      <div class="product-card" data-product-id="product-2">
+        <div class="gender-badge womens-badge">Women's</div>
+        <div class="badge new-badge">NEW</div>
+        <img src="https://shop.mango.com/assets/rcs/pics/static/T8/fotos/S/87040377_46.jpg?imwidth=2048&imdensity=1&ts=1730910884241" alt="Women's Blouse" class="product-image">
+        <div class="product-brand">Penshoppe</div>
+        <div class="product-name">Floral Print Blouse</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(23)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱699.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">S</span>
+          <span class="size-option">M</span>
+          <span class="size-option">L</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Kids' Product -->
+      <div class="product-card" data-product-id="product-3">
+        <div class="gender-badge kids-badge">Kids'</div>
+        <img src="https://dynamic.zacdn.com/Wy89FaBQU0YLEcTSkXdHXOky_1I=/filters:quality(70):format(webp)/https://static-ph.zacdn.com/p/m-latin-9812-7392813-1.jpg" alt="Kids Graphic Tee" class="product-image">
+        <div class="product-brand">Old Navy</div>
+        <div class="product-name">Kids Graphic Print T-shirt</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(24)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱499.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">3Y</span>
+          <span class="size-option">4Y</span>
+          <span class="size-option">5Y</span>
+          <span class="size-option">6Y</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Men's Product 2 -->
+      <div class="product-card" data-product-id="product-4">
+        <div class="gender-badge mens-badge">Men's</div>
+        <div class="badge sale-badge">-20%</div>
+        <img src="https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png" alt="Nike Air Force 1" class="product-image">
+        <div class="product-brand">Nike</div>
+        <div class="product-name">Air Force 1 '07</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(456)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱5,495.00</span>
+          <span class="current-price product-price">₱4,396.00</span>
+          <span class="discount">-20%</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">UK 8</span>
+          <span class="size-option">UK 9</span>
+          <span class="size-option">UK 10</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Women's Product 2 -->
+      <div class="product-card" data-product-id="product-5">
+        <div class="gender-badge womens-badge">Women's</div>
+        <img src="https://img.kwcdn.com/product/fancy/3354c053-a613-4b00-9c06-eeec24fb0afe.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp" alt="Women's Dress" class="product-image">
+        <div class="product-brand">H&M</div>
+        <div class="product-name">Floral Summer Dress</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(87)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱1,299.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">XS</span>
+          <span class="size-option">S</span>
+          <span class="size-option">M</span>
+          <span class="size-option">L</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Kids' Product 2 -->
+      <div class="product-card" data-product-id="product-6">
+        <div class="gender-badge kids-badge">Kids'</div>
+        <div class="badge sale-badge">-25%</div>
+        <img src="https://mothercare.ph/cdn/shop/files/9L753910_1.jpg?v=1737355028" alt="Kids Backpack" class="product-image">
+        <div class="product-brand">Skip Hop</div>
+        <div class="product-name">Zoo Animal Backpack</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(67)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱1,099.00</span>
+          <span class="current-price product-price">₱824.25</span>
+          <span class="discount">-25%</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Men's Product 3 -->
+      <div class="product-card" data-product-id="product-7">
+        <div class="gender-badge mens-badge">Men's</div>
+        <img src="https://down-ph.img.susercontent.com/file/172c07a02b3e1c82ce30700aa08bc9a3" alt="G-Shock Watch" class="product-image">
+        <div class="product-brand">Casio</div>
+        <div class="product-name">G-Shock GA-2100</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(23)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱4,995.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">One Size</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Women's Product 3 -->
+      <div class="product-card" data-product-id="product-8">
+        <div class="gender-badge womens-badge">Women's</div>
+        <div class="badge sale-badge">-30%</div>
+        <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/09c5ea6df1bd4be6baaaac5e003e7047_9366/Forum_Low_Shoes_White_FY7756_01_standard.jpg" alt="Women's Sneakers" class="product-image">
+        <div class="product-brand">Adidas</div>
+        <div class="product-name">Forum Low Shoes</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(156)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱5,300.00</span>
+          <span class="current-price product-price">₱3,710.00</span>
+          <span class="discount">-30%</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">UK 5</span>
+          <span class="size-option">UK 6</span>
+          <span class="size-option">UK 7</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Kids' Product 3 -->
+      <div class="product-card" data-product-id="product-9">
+        <div class="gender-badge kids-badge">Kids'</div>
+        <div class="badge new-badge">NEW</div>
+        <img src="https://cdn-images.farfetch-contents.com/16/64/00/84/16640084_36477875_600.jpg" alt="Kids Converse" class="product-image">
+        <div class="product-brand">Converse</div>
+        <div class="product-name">Kids' Chuck Taylor All Star</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(43)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱2,295.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">US 11</span>
+          <span class="size-option">US 12</span>
+          <span class="size-option">US 13</span>
+          <span class="size-option">US 1</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Men's Product 4 -->
+      <div class="product-card" data-product-id="product-10">
+        <div class="gender-badge mens-badge">Men's</div>
+        <img src="https://www.ubuy.com.ph/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjFKWTh5TE1MTUwuX0FDX1VMMTUwMF8uanBn.jpg" alt="Hoodie" class="product-image">
+        <div class="product-brand">Bench</div>
+        <div class="product-name">Essential Pullover Hoodie</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(156)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱999.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">S</span>
+          <span class="size-option">M</span>
+          <span class="size-option">L</span>
+          <span class="size-option">XL</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Women's Product 4 -->
+      <div class="product-card" data-product-id="product-11">
+        <div class="gender-badge womens-badge">Women's</div>
+        <img src="https://www.gapcanada.ca/webcontent/0027/906/232/cn27906232.jpg" alt="Women's Jeans" class="product-image">
+        <div class="product-brand">Gap</div>
+        <div class="product-name">High Rise Slim Jeans</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(212)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱2,290.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">24</span>
+          <span class="size-option">26</span>
+          <span class="size-option">28</span>
+          <span class="size-option">30</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+
+      <!-- Kids' Product 4 -->
+      <div class="product-card" data-product-id="product-12">
+        <div class="gender-badge kids-badge">Kids'</div>
+        <img src="https://i5.walmartimages.com/seo/Joyspun-Women-s-Cotton-Blend-Notch-Collar-Top-and-Pants-Pajama-Set-2-Piece-Sizes-S-to-4X_9ca39489-33a1-4f57-9ede-ac47d64f4291.22b349da1247adfe42bb115f755be680.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF" alt="Kids Pajamas" class="product-image">
+        <div class="product-brand">Carter's</div>
+        <div class="product-name">2-Piece Cotton Pajamas</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(98)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price product-price">₱899.00</span>
+        </div>
+        <div class="product-variations">
+          <span class="size-option">2T</span>
+          <span class="size-option">3T</span>
+          <span class="size-option">4T</span>
+          <span class="size-option">5T</span>
+        </div>
+        <button class="add-to-cart-btn" data-redirect="false">Add to Cart</button>
+        <button class="add-to-cart-btn buy-now-btn" data-redirect="true">Buy Now</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="view-more-container">
+    <a href="#" class="view-more-btn">View More Products</a>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="privacy_policy.html">Data Collection & Usage</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Returns Policy</a>
+        <a href="#">Payment Methods</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Fix cart quantity issues -->
+  <script>
+    // Fix any potential quantity issues in the cart before loading unified_cart.js
+    (function() {
+      try {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let hasChanges = false;
+        
+        // Make sure all cart items have a quantity of at least 1
+        cart.forEach(item => {
+          if (!item.quantity || item.quantity < 1) {
+            item.quantity = 1;
+            hasChanges = true;
+          }
+        });
+        
+        // Save the fixed cart if any changes were made
+        if (hasChanges) {
+          localStorage.setItem('cart', JSON.stringify(cart));
+          console.log('Cart quantities fixed');
+        }
+      } catch(e) {
+        console.error('Error fixing cart quantities:', e);
+      }
+    })();
+  </script>
+  
+  <!-- Replace existing scripts with unified cart script -->
+  <script src="unified_cart.js"></script>
+  
+  <!-- Initialize size selection functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Size selection is handled by unified_cart.js
+      
+      // Add to cart with redirect button
+      const addToCartWithRedirect = document.querySelectorAll('.add-to-cart-btn[data-redirect="true"]');
+      addToCartWithRedirect.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const productCard = this.closest('.product-card');
+          if (!productCard) return;
+          
+          // First add to cart
+          addProductToCart(productCard);
+          
+          // Then redirect to cart page
+          setTimeout(() => {
+            window.location.href = 'CART_PAGE.html';
+          }, 500);
+        });
+      });
+
+      // Product Filter Functionality
+      // Get all product cards and filter options
+      const productCards = document.querySelectorAll('.product-grid > .product-card');
+      const filterOptions = document.querySelectorAll('.filter-option input');
+      
+      // Initialize filter state object
+      const filterState = {
+        departments: [],
+        categories: [],
+        brands: [],
+        priceRange: null
+      };
+
+      // Add event listeners to all filter options
+      filterOptions.forEach(option => {
+        option.addEventListener('change', function() {
+          updateFilterState();
+          applyFilters();
+        });
+      });
+
+      // Update filter state based on selected options
+      function updateFilterState() {
+        // Reset filter state
+        filterState.departments = [];
+        filterState.categories = [];
+        filterState.brands = [];
+        filterState.priceRange = null;
+
+        // Get all checked department filters
+        const departmentSection = document.querySelector('.filter-section:nth-child(1)');
+        departmentSection.querySelectorAll('.filter-option input:checked').forEach(input => {
+          filterState.departments.push(input.nextElementSibling.textContent.trim());
+        });
+
+        // Get all checked category filters
+        const categorySection = document.querySelector('.filter-section:nth-child(2)');
+        categorySection.querySelectorAll('.filter-option input:checked').forEach(input => {
+          filterState.categories.push(input.nextElementSibling.textContent.trim());
+        });
+
+        // Get all checked brand filters
+        const brandSection = document.querySelector('.filter-section:nth-child(3)');
+        brandSection.querySelectorAll('.filter-option input:checked').forEach(input => {
+          filterState.brands.push(input.nextElementSibling.textContent.trim());
+        });
+
+        // Get selected price range
+        const priceSection = document.querySelector('.filter-section:nth-child(4)');
+        const selectedPrice = priceSection.querySelector('.filter-option input:checked');
+        if (selectedPrice) {
+          filterState.priceRange = selectedPrice.nextElementSibling.textContent.trim();
+        }
+      }
+
+      // Apply filters to product cards
+      function applyFilters() {
+        productCards.forEach(card => {
+          let shouldShow = true;
+          
+          // Check department filter
+          if (filterState.departments.length > 0) {
+            const genderBadge = card.querySelector('.gender-badge');
+            if (genderBadge) {
+              const department = genderBadge.textContent.trim();
+              if (!filterState.departments.some(dep => department.includes(dep))) {
+                shouldShow = false;
+              }
+            }
+          }
+          
+          // Check brand filter
+          if (shouldShow && filterState.brands.length > 0) {
+            const brand = card.querySelector('.product-brand').textContent.trim();
+            if (!filterState.brands.includes(brand)) {
+              shouldShow = false;
+            }
+          }
+          
+          // Check category filter
+          if (shouldShow && filterState.categories.length > 0) {
+            // For category, we need to check multiple things
+            let matchesCategory = false;
+            
+            // Check for "New Arrivals" by looking for the "NEW" badge
+            if (filterState.categories.includes('New Arrivals')) {
+              if (card.querySelector('.new-badge')) {
+                matchesCategory = true;
+              }
+            }
+            
+            // Check for "Sale" by looking for discount badge or sale badge
+            if (filterState.categories.includes('Sale')) {
+              if (card.querySelector('.sale-badge') || card.querySelector('.discount')) {
+                matchesCategory = true;
+              }
+            }
+            
+            // For Clothing, Accessories, and Shoes, we can check the product name
+            const productName = card.querySelector('.product-name').textContent.toLowerCase();
+            
+            if (filterState.categories.includes('Clothing') && 
+                (productName.includes('tee') || 
+                 productName.includes('shirt') || 
+                 productName.includes('hoodie') || 
+                 productName.includes('blouse') || 
+                 productName.includes('dress') || 
+                 productName.includes('jeans') || 
+                 productName.includes('pajamas'))) {
+              matchesCategory = true;
+            }
+            
+            if (filterState.categories.includes('Accessories') && 
+                (productName.includes('watch') || 
+                 productName.includes('backpack'))) {
+              matchesCategory = true;
+            }
+            
+            if (filterState.categories.includes('Shoes') && 
+                (productName.includes('shoes') || 
+                 productName.includes('air force') || 
+                 productName.includes('forum') || 
+                 productName.includes('chuck taylor'))) {
+              matchesCategory = true;
+            }
+            
+            if (!matchesCategory) {
+              shouldShow = false;
+            }
+          }
+          
+          // Check price range filter
+          if (shouldShow && filterState.priceRange) {
+            const priceElement = card.querySelector('.current-price');
+            if (priceElement) {
+              // Extract the price number from the string (remove currency symbol and commas)
+              const price = parseFloat(priceElement.textContent.replace(/[^\d.]/g, ''));
+              
+              if (filterState.priceRange === 'Under ₱500') {
+                if (price >= 500) shouldShow = false;
+              } else if (filterState.priceRange === '₱500 - ₱1,000') {
+                if (price < 500 || price > 1000) shouldShow = false;
+              } else if (filterState.priceRange === '₱1,000 - ₱3,000') {
+                if (price < 1000 || price > 3000) shouldShow = false;
+              } else if (filterState.priceRange === 'Over ₱3,000') {
+                if (price <= 3000) shouldShow = false;
+              }
+            }
+          }
+          
+          // Show or hide the product card based on filter results
+          if (shouldShow) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Check if all products are hidden, show a message
+        const visibleProducts = [...productCards].filter(card => card.style.display !== 'none');
+        const noResultsElem = document.getElementById('no-results-message');
+        
+        if (visibleProducts.length === 0) {
+          if (!noResultsElem) {
+            // Create a no results message
+            const noResults = document.createElement('div');
+            noResults.id = 'no-results-message';
+            noResults.style.gridColumn = '1 / -1';
+            noResults.style.textAlign = 'center';
+            noResults.style.padding = '30px';
+            noResults.style.color = '#666';
+            noResults.innerHTML = '<h3>No products match your filters</h3><p>Try adjusting your filter criteria</p>';
+            document.querySelector('.product-grid').appendChild(noResults);
+          }
+        } else if (noResultsElem) {
+          // Remove the no results message if there are visible products
+          noResultsElem.remove();
+        }
+      }
+
+      // Initialize filters
+      updateFilterState();
+    });
+  </script>
+   <script src="javascript_sidebar.js"></script>
+</body>
+</html> 

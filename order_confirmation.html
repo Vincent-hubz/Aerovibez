@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmation</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Mobile Header Styles */
+    @media (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+      }
+
+      .left-icons {
+        gap: 15px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .right-icons {
+        gap: 15px;
+      }
+
+      .icon-container i {
+        font-size: 18px;
+      }
+    }
+
+    /* Confirmation container */
+    .confirmation-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 60px;
+      color: #4CAF50;
+      margin-bottom: 20px;
+    }
+
+    .confirmation-title {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .confirmation-message {
+      font-size: 16px;
+      margin-bottom: 30px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .order-info {
+      text-align: left;
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    .order-info p {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .order-info strong {
+      font-weight: bold;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #0069d9;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid #007bff;
+      color: #007bff;
+    }
+
+    .btn-outline:hover {
+      background-color: #f0f7ff;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #000;
+      color: #fff;
+      padding: 30px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="left-icons">
+      <a href="#" class="icon-container menu-icon-container">
+        <i class="fas fa-bars" style="color: #fff; font-size: 20px;"></i>
+        <span>Menu</span>
+      </a>
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="confirmation-container">
+    <i class="fas fa-check-circle success-icon"></i>
+    <h1 class="confirmation-title">Thank You for Your Order!</h1>
+    <p class="confirmation-message">Your order has been received and is now being processed. We've sent a confirmation email with your order details.</p>
+    
+    <div class="order-info">
+      <p><strong>Order ID:</strong> <span id="order-id">Loading...</span></p>
+      <p><strong>Order Date:</strong> <span id="order-date">Loading...</span></p>
+      <p><strong>Shipping Address:</strong> <span id="shipping-address">Loading...</span></p>
+      <p><strong>Total Amount:</strong> <span id="total-amount">Loading...</span></p>
+      <p><strong>Estimated Delivery:</strong> <span id="delivery-date">Loading...</span></p>
+    </div>
+    
+    <div class="action-buttons">
+      <a href="main_shop.html" class="btn">Continue Shopping</a>
+      <a href="#" class="btn btn-outline" id="track-order-btn">Track Order</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="#">Data Collection & Usage</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Returns Policy</a>
+        <a href="#">Payment Methods</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="unified_cart.js"></script>
+  <script src="javascript_sidebar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get order ID from URL query param
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get('id');
+      
+      if (!orderId) {
+        window.location.href = 'main_shop.html';
+        return;
+      }
+      
+      // Get orders from localStorage
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      const order = orders.find(o => o.id === orderId);
+      
+      if (!order) {
+        window.location.href = 'main_shop.html';
+        return;
+      }
+      
+      // Display order information
+      document.getElementById('order-id').textContent = order.id;
+      
+      // Format date
+      const orderDate = new Date(order.date);
+      document.getElementById('order-date').textContent = orderDate.toLocaleDateString() + ' ' + orderDate.toLocaleTimeString();
+      
+      // Format address
+      const shipping = order.shipping;
+      const address = `${shipping.street}, ${shipping.barangay}, ${shipping.city}, ${shipping.province}, ${shipping.region}, ${shipping.postalCode}`;
+      document.getElementById('shipping-address').textContent = address;
+      
+      // Format total amount
+      document.getElementById('total-amount').textContent = '₱' + order.total.toLocaleString();
+      
+      // Calculate estimated delivery date (3-5 days for standard, 1-2 for express)
+      const deliveryDays = shipping.shippingMethod === 'express' ? 2 : 5;
+      const deliveryDate = new Date(orderDate);
+      deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
+      document.getElementById('delivery-date').textContent = deliveryDate.toLocaleDateString();
+      
+      // Track order button
+      document.getElementById('track-order-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        showNotification('Order tracking functionality will be implemented soon. Your order ID is: ' + order.id);
+      });
+    });
+  </script>
+</body>
+</html> 

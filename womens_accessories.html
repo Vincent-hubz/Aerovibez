@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women's Accessories - Streetwear Fashion</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Reusing the same styles from accessories.html */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-container input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333;
+    }
+
+    .search-container i {
+      color: #666;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Navigation */
+    .navigation {
+      background-color: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-links a.active {
+      color: #ff3e3e;
+      font-weight: bold;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 30px 0;
+      background: #fff;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .page-title h1 {
+      font-size: 28px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Main Content */
+    .main-content {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Filters Sidebar */
+    .filters {
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .filter-option {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .filter-option input[type="checkbox"],
+    .filter-option input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .quick-view-btn {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2;
+      text-decoration: none;
+    }
+
+    .add-to-cart-btn {
+      display: block;
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 0;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #333;
+    }
+
+    .size-option {
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-option.selected {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    .product-brand {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin: 8px 0;
+    }
+
+    .stars {
+      color: #ffd700;
+      font-size: 14px;
+    }
+
+    .review-count {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .price-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .original-price {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 14px;
+    }
+
+    .current-price {
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .discount {
+      color: #ff3e3e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="left-icons">
+      <a href="#" class="icon-container menu-icon-container">
+        <i class="fas fa-bars menu-icon" style="color: #fff; font-size: 20px;"></i>
+        <span>Menu</span>
+      </a>
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" placeholder="Search for products...">
+      <i class="fas fa-search" style="font-size: 18px;"></i>
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="navigation">
+    <div class="nav-links">
+      <a href="womens_new_arrival.html">New Arrival</a> |
+      <a href="womens_clothing.html">Clothing</a> |
+      <a href="womens_accessories.html" class="active">Accessories</a> |
+      <a href="womens_shoes.html">Shoes</a> |
+      <a href="womens_sale.html">Sale</a>
+    </div>
+  </nav>
+
+  <div class="page-title">
+    <h1>Women's Accessories</h1>
+    <p>Complete your look with our stylish and affordable accessories</p>
+  </div>
+
+  <main class="main-content">
+    <aside class="filters">
+      <div class="filter-section">
+        <h3>Category</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Jewelry</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Bags</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Wallets</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Hair Accessories</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Scarves</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Brand</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Zara</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>H&M</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Accessorize</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Lovisa</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Price Range</h3>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Under ₱500</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱500 - ₱1,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱1,000 - ₱2,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Over ₱2,000</label>
+        </div>
+      </div>
+    </aside>
+
+    <div class="product-grid">
+      <!-- Product 1: Earrings -->
+      <div class="product-card">
+        <img src="https://www.astleyclarke.com/media/wysiwyg/Hoops-that-turn-Heads.jpg" alt="Hoop Earrings" class="product-image">
+        <div class="product-brand">Zara</div>
+        <div class="product-name">Golden Hoop Earrings</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(45)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱699.00</span>
+          <span class="current-price">₱499.00</span>
+          <span class="discount">-29%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: brown;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/zara-earrings/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 2: Tote Bag -->
+      <div class="product-card">
+        <img src="https://shop.mango.com/assets/rcs/pics/static/T8/fotos/S/87054419_99_D7.jpg?imwidth=2048&imdensity=1&ts=1739269522340" alt="Tote Bag" class="product-image">
+        <div class="product-brand">H&M</div>
+        <div class="product-name">Large Shopper Tote Bag</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(87)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱999.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: brown;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/hm-tote-bag/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 3: Necklace -->
+      <div class="product-card">
+        <img src="https://www.reddotjewels.com/cdn/shop/files/EtherealGoldlayerednecklace-ASRN728-1_720x.jpg?v=1732547696" alt="Layered Necklace" class="product-image">
+        <div class="product-brand">Lovisa</div>
+        <div class="product-name">Gold Layered Chain Necklace</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(56)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱799.00</span>
+          <span class="current-price">₱599.00</span>
+          <span class="discount">-25%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: gold;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/lovisa-necklace/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 4: Wallet -->
+      <div class="product-card">
+        <img src="https://www.astridleather.com/wp-content/uploads/2017/01/P1011622-compressed.jpg" alt="Card Holder" class="product-image">
+        <div class="product-brand">Zara</div>
+        <div class="product-name">Leather Card Holder</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(34)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱895.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/zara-card-holder/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 5: Hair Clips -->
+      <div class="product-card">
+        <img src="https://5.imimg.com/data5/SELLER/Default/2023/5/309838677/ME/LA/XL/188770424/cl32-3--500x500.jpg" alt="Hair Clips" class="product-image">
+        <div class="product-brand">Accessorize</div>
+        <div class="product-name">Set of 3 Pearl Hair Clips</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(23)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱449.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: white;"></span>
+            <span class="color-option" style="background-color: pink;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/accessorize-hair-clips/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 6: Scarf -->
+      <div class="product-card">
+        <img src="https://ilonatambor.com/wp-content/uploads/2023/03/ILONATAMBORSS2023-LOOK7-000363.webp" alt="Scarf" class="product-image">
+        <div class="product-brand">H&M</div>
+        <div class="product-name">Patterned Satin Scarf</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(67)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱799.00</span>
+          <span class="current-price">₱599.00</span>
+          <span class="discount">-25%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: red;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/hm-satin-scarf/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 7: Bracelet -->
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/71sxp5Y6okL._AC_SL1500_.jpg" alt="Bracelet" class="product-image">
+        <div class="product-brand">Lovisa</div>
+        <div class="product-name">Crystal Tennis Bracelet</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(42)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱699.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: white;"></span>
+            <span class="color-option" style="background-color: gold;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/lovisa-bracelet/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 8: Sunglasses -->
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/61hOoFlRKUL._AC_UY1100_.jpg" alt="Sunglasses" class="product-image">
+        <div class="product-brand">Zara</div>
+        <div class="product-name">Oversized Square Sunglasses</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(98)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱1,295.00</span>
+          <span class="current-price">₱995.00</span>
+          <span class="discount">-23%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: brown;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/zara-sunglasses/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="privacy_policy.html">Data Collection & Usage</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Returns Policy</a>
+        <a href="#">Payment Methods</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="notification" class="notification"></div>
+
+  <script src="unified_cart.js"></script>
+  <script src="javascript_sidebar.js"></script>
+</body>
+</html> 

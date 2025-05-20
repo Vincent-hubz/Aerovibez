@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Accessories - Streetwear Fashion</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Reusing the same styles from shoes.html */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Icon container position for badge */
+    .icon-container {
+      position: relative;
+    }
+
+    /* Cart count badge */
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff3e3e;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-container input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333;
+    }
+
+    .search-container i {
+      color: #666;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Navigation */
+    .navigation {
+      background-color: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-links a.active {
+      color: #ff3e3e;
+      font-weight: bold;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 30px 0;
+      background: #fff;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .page-title h1 {
+      font-size: 28px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Main Content */
+    .main-content {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Filters Sidebar */
+    .filters {
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .filter-option {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .filter-option input[type="checkbox"],
+    .filter-option input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .quick-view-btn {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2;
+      text-decoration: none;
+    }
+
+    .add-to-cart-btn {
+      display: block;
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 0;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #333;
+    }
+
+    .size-option {
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-option.selected {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    .product-brand {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin: 8px 0;
+    }
+
+    .stars {
+      color: #ffd700;
+      font-size: 14px;
+    }
+
+    .review-count {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .price-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .original-price {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 14px;
+    }
+
+    .current-price {
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .discount {
+      color: #ff3e3e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+
+    /* Mobile Header Styles */
+    @media screen and (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .left-icons {
+        gap: 15px;
+        order: 1;
+      }
+
+      .right-icons {
+        gap: 15px;
+        order: 2;
+      }
+
+      .icon-container {
+        gap: 4px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .icon-container i {
+        font-size: 18px !important;
+      }
+
+      .search-container {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0 0 0;
+        padding: 8px 15px;
+      }
+
+      .search-container input {
+        font-size: 14px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff3e3e;
+        color: white;
+        font-size: 10px;
+        padding: 2px 5px;
+        border-radius: 50%;
+        min-width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .navigation {
+        padding: 8px 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-links {
+        gap: 10px;
+        font-size: 12px;
+        padding: 0 5px;
+      }
+
+      /* Mobile Product Grid */
+      .main-content {
+        flex-direction: column;
+        padding: 10px;
+        gap: 15px;
+      }
+
+      .filters {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 15px;
+      }
+
+      .filter-section {
+        margin-bottom: 15px;
+      }
+
+      .filter-option {
+        margin: 8px 0;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0;
+      }
+
+      .product-card {
+        padding: 10px;
+        margin: 0;
+      }
+
+      .product-image {
+        height: 140px;
+        object-fit: cover;
+      }
+
+      .product-name {
+        font-size: 12px;
+        margin: 8px 0;
+      }
+
+      .product-brand {
+        font-size: 10px;
+        margin-bottom: 4px;
+      }
+
+      .price-container {
+        font-size: 12px;
+        margin: 6px 0;
+      }
+
+      .add-to-cart-btn {
+        font-size: 12px;
+        padding: 8px 0;
+        margin-top: 8px;
+      }
+
+      .product-variations {
+        margin: 8px 0;
+      }
+
+      .variation-title {
+        font-size: 11px;
+        margin: 4px 0;
+      }
+
+      .size-option {
+        font-size: 11px;
+        padding: 4px 8px;
+      }
+
+      .color-option {
+        width: 16px;
+        height: 16px;
+        margin: 0 4px;
+      }
+
+      .quick-view-btn {
+        font-size: 11px;
+        padding: 6px 12px;
+      }
+
+      .page-title {
+        padding: 20px 15px;
+      }
+
+      .page-title h1 {
+        font-size: 24px;
+      }
+
+      .page-title p {
+        font-size: 13px;
+      }
+    }
+
+    /* Additional mobile optimizations for very small screens */
+    @media screen and (max-width: 360px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card {
+        max-width: 280px;
+        margin: 0 auto;
+      }
+
+      .product-image {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="left-icons">
+      <a href="#" class="icon-container menu-icon-container">
+        <i class="fas fa-bars menu-icon" style="color: #fff; font-size: 20px;"></i>
+        <span>Menu</span>
+      </a>
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" placeholder="Search for products...">
+      <i class="fas fa-search" style="font-size: 18px;"></i>
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+
+  <nav class="navigation">
+    <div class="nav-links">
+      <a href="new_arrival.html">New Arrival</a> |
+      <a href="clothing.html">Clothing</a> |
+      <a href="accessories.html" class="active">Accessories</a> |
+      <a href="shoes.html">Shoes</a> |
+      <a href="sale.html">Sale</a>
+    </div>
+  </nav>
+
+  <div class="page-title">
+    <h1>Men's Accessories</h1>
+    <p>Complete your look with our stylish and affordable accessories</p>
+  </div>
+
+  <main class="main-content">
+    <aside class="filters">
+      <div class="filter-section">
+        <h3>Category</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Caps & Hats</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Bags</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Wallets</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Watches</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Brand</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Penshoppe</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Bench</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Oxygen</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Casio</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Price Range</h3>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Under ₱500</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱500 - ₱1,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱1,000 - ₱2,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Over ₱2,000</label>
+        </div>
+      </div>
+    </aside>
+
+    <div class="product-grid">
+      <!-- Product 1: Cap -->
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/819D7Z-kFfL._AC_UY1000_.jpg" alt="Baseball Cap" class="product-image">
+        <div class="product-brand">Penshoppe</div>
+        <div class="product-name">Classic Baseball Cap</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(89)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱499.00</span>
+          <span class="current-price">₱399.00</span>
+          <span class="discount">-20%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: navy;"></span>
+            <span class="color-option" style="background-color: red;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/penshoppe-baseball-cap/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 2: Backpack -->
+      <div class="product-card">
+        <img src="https://ninetygo.ph/cdn/shop/files/NG_UrbanDailyBackpack_WBG_1.jpg?v=1715160049" alt="Casual Backpack" class="product-image">
+        <div class="product-brand">Bench</div>
+        <div class="product-name">Urban Daily Backpack</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(156)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱1,299.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: navy;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/bench-backpack/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 3: Wallet -->
+      <div class="product-card">
+        <img src="https://crazyhorsecraft.com/cdn/shop/products/3-Vegetable-tanned-italian-leather-wallet-cardholder-light-brown.jpg?v=1568725854" alt="Leather Wallet" class="product-image">
+        <div class="product-brand">Oxygen</div>
+        <div class="product-name">Classic Leather Wallet</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(78)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱899.00</span>
+          <span class="current-price">₱699.00</span>
+          <span class="discount">-22%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: brown;"></span>
+            <span class="color-option" style="background-color: black;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/oxygen-wallet/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 4: Watch -->
+      <div class="product-card">
+        <img src="https://www.watchportal.com.ph/cdn/shop/files/casio-vintage-a500wa-1d-silver-stainless-watch-unisex-watchportal-ph.jpg?v=1697145820" alt="Digital Watch" class="product-image">
+        <div class="product-brand">Casio</div>
+        <div class="product-name">Vintage Digital Watch</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(234)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱1,995.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Style:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: silver;"></span>
+            <span class="color-option" style="background-color: gold;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/casio-digital-watch/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 5: Bucket Hat -->
+      <div class="product-card">
+        <img src="https://rustans.com/cdn/shop/files/POLO-203207702.jpg?v=1711328364&width=1400" alt="Bucket Hat" class="product-image">
+        <div class="product-brand">Penshoppe</div>
+        <div class="product-name">Cotton Bucket Hat</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(67)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱449.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: beige;"></span>
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: white;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/penshoppe-bucket-hat/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 6: Sling Bag -->
+      <div class="product-card">
+        <img src="https://urbangadgets.ph/wp-content/uploads/Peak-Design-Everyday-Sling-6L-v2-Ash-0001.jpg" alt="Sling Bag" class="product-image">
+        <div class="product-brand">Bench</div>
+        <div class="product-name">Everyday Sling Bag</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(98)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱899.00</span>
+          <span class="current-price">₱699.00</span>
+          <span class="discount">-22%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: brown;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/bench-sling-bag/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 7: Card Holder -->
+      <div class="product-card">
+        <img src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/7ebdc4793448bec43d7985d17d060ead.jpg" alt="Card Holder" class="product-image">
+        <div class="product-brand">Oxygen</div>
+        <div class="product-name">Slim Card Holder</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(45)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱299.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: brown;"></span>
+            <span class="color-option" style="background-color: black;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/oxygen-card-holder/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 8: Sports Watch -->
+      <div class="product-card">
+        <img src="https://i5.walmartimages.com/seo/George-Men-s-Digital-Sport-Wristwatch-Plastic-Strap_7a730cf5-4182-44ba-8e0e-bd4dd0060321.067930a09530d6ff795f36c0d8439a6e.jpeg" alt="Sports Watch" class="product-image">
+        <div class="product-brand">Casio</div>
+        <div class="product-name">Sports Digital Watch</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(167)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱1,795.00</span>
+          <span class="current-price">₱1,495.00</span>
+          <span class="discount">-17%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">One Size</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: blue;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/casio-sports-watch/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="privacy_policy.html">Data Collection & Usage</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Returns Policy</a>
+        <a href="#">Payment Methods</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="notification" class="notification"></div>
+
+  <script src="unified_cart.js"></script>
+  <script src="javascript_sidebar.js"></script>
+</body>
+</html> 

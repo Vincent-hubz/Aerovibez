@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-container input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333;
+    }
+
+    .search-container i {
+      color: #666;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Mobile Header Styles */
+    @media (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+      }
+
+      .left-icons {
+        gap: 15px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .search-container {
+        margin: 0 15px;
+        padding: 6px 12px;
+      }
+
+      .right-icons {
+        gap: 15px;
+      }
+
+      .icon-container i {
+        font-size: 18px;
+      }
+    }
+
+    /* Cart count badge */
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff3e3e;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    /* Main Content */
+    .checkout-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      display: flex;
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    /* Shipping Details */
+    .shipping-details {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .shipping-details h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .shipping-options {
+      margin-top: 20px;
+    }
+
+    .shipping-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .shipping-option input {
+      margin-right: 10px;
+    }
+
+    .discount-coupon {
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    .discount-btn {
+      background-color: #007bff;
+      color: #fff;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Order Details */
+    .order-details {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      top: 0;
+    }
+
+    .order-items-section {
+      flex: 1;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #eee;
+      position: absolute;
+      top: 0;
+    }
+
+    .order-details h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    .order-item {
+      display: flex;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .order-item-image {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      background-color: #f9f9f9;
+    }
+
+    .order-item-details {
+      flex-grow: 1;
+      padding-left: 15px;
+    }
+
+    .order-item-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .order-item-description {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .order-item-price {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .order-summary {
+      margin-top: 320px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+      padding: 8px 0;
+    }
+
+    .order-row.total {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 2px solid #dee2e6;
+    }
+
+    .place-order-btn {
+      display: block;
+      width: 100%;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.2s;
+    }
+
+    .place-order-btn:hover {
+      background-color: #0069d9;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #000;
+      color: #fff;
+      padding: 30px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+
+    /* Responsive styles */
+    @media screen and (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+      }
+
+      .left-icons {
+        gap: 15px;
+      }
+
+      .search-container {
+        order: 3;
+        width: 100%;
+        max-width: none;
+        margin: 10px 0 0 0;
+      }
+
+      .right-icons {
+        gap: 15px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .checkout-container {
+        flex-direction: column;
+        padding: 10px;
+        margin: 15px auto;
+      }
+
+      .shipping-details,
+      .order-details {
+        width: 100%;
+      }
+
+      .order-items-section {
+        position: relative;
+        margin-bottom: 20px;
+      }
+
+      .form-group input {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .shipping-details h2 {
+        font-size: 18px;
+      }
+
+      .discount-btn {
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .header {
+        padding: 8px 10px;
+      }
+
+      .left-icons {
+        gap: 10px;
+      }
+
+      .right-icons {
+        gap: 10px;
+      }
+
+      .icon-container img {
+        max-height: 16px;
+      }
+
+      .icon-container span {
+        font-size: 8px;
+      }
+
+      .checkout-container {
+        margin: 10px auto;
+      }
+
+      .shipping-details,
+      .order-details {
+        padding: 15px;
+      }
+
+      .form-group label {
+        font-size: 12px;
+      }
+
+      .form-group input {
+        font-size: 12px;
+        padding: 6px;
+      }
+
+      .shipping-details h2 {
+        font-size: 16px;
+      }
+
+      .shipping-option {
+        font-size: 12px;
+      }
+
+      .discount-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="left-icons">
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" placeholder="Search for products...">
+      <i class="fas fa-search" style="font-size: 18px;"></i>
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="checkout-container">
+    <!-- Shipping Details Section -->
+    <div class="shipping-details">
+      <h2>Shipping Details</h2>
+      <form>
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName">
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number:</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber">
+        </div>
+        <div class="form-group">
+          <label for="region">Region:</label>
+          <input type="text" id="region" name="region">
+        </div>
+        <div class="form-group">
+          <label for="province">Province:</label>
+          <input type="text" id="province" name="province">
+        </div>
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input type="text" id="city" name="city">
+        </div>
+        <div class="form-group">
+          <label for="barangay">Barangay:</label>
+          <input type="text" id="barangay" name="barangay">
+        </div>
+        <div class="form-group">
+          <label for="street">Street:</label>
+          <input type="text" id="street" name="street">
+        </div>
+        <div class="form-group">
+          <label for="postalCode">Postal Code:</label>
+          <input type="text" id="postalCode" name="postalCode">
+        </div>
+        
+        <div class="shipping-options">
+          <div class="shipping-option">
+            <input type="checkbox" id="standard-shipping" name="shipping" checked>
+            <label for="standard-shipping">Standard Shipping: FREE</label>
+          </div>
+          <div class="shipping-option">
+            <input type="checkbox" id="express-delivery" name="shipping">
+            <label for="express-delivery">Express Delivery: ₱150</label>
+          </div>
+        </div>
+        
+        <div class="discount-coupon">
+          <button type="button" class="discount-btn">Discount Coupon</button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Order Details Section -->
+    <div class="order-details">
+      <div class="order-items-section">
+        <!-- Dynamic content will be loaded by JavaScript -->
+      </div>
+      
+      <div class="order-summary">
+        <div class="order-row">
+          <span>Sub Total:</span>
+          <span>₱0</span>
+        </div>
+        <div class="order-row">
+          <span>Shipping Cost:</span>
+          <span>₱0</span>
+        </div>
+        <div class="order-row">
+          <span>Tax:</span>
+          <span>₱0</span>
+        </div>
+        <div class="order-row total">
+          <span>Total:</span>
+          <span>₱0</span>
+        </div>
+      </div>
+      
+      <button type="button" class="place-order-btn">Place Order</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="privacy_policy.html">Data Collection & Usage</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Returns Policy</a>
+        <a href="#">Payment Methods</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="javascript_sidebar.js"></script>
+  <script src="unified_cart.js"></script>
+  <script src="checkout.js"></script>
+</body>
+</html> 

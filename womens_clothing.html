@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women's Clothing - Streetwear Fashion</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-container input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333;
+    }
+
+    .search-container i {
+      color: #666;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Navigation */
+    .navigation {
+      background-color: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-links a.active {
+      color: #ff3e3e;
+      font-weight: bold;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 30px 0;
+      background: #fff;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .page-title h1 {
+      font-size: 28px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Main Content */
+    .main-content {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Filters Sidebar */
+    .filters {
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .filter-option {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .filter-option input[type="checkbox"],
+    .filter-option input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-link:hover {
+      text-decoration: none;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .quick-view-btn {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2;
+      text-decoration: none;
+    }
+
+    .add-to-cart-btn {
+      display: block;
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 0;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #333;
+    }
+
+    .size-option {
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .size-option.selected {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    .product-brand {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .product-variations {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin: 8px 0;
+    }
+
+    .stars {
+      color: #ffd700;
+      font-size: 14px;
+    }
+
+    .review-count {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .price-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .original-price {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 14px;
+    }
+
+    .current-price {
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .discount {
+      color: #ff3e3e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+
+    /* Specific adjustment for menu icon */
+    .menu-icon {
+      width: 22px !important;
+      height: 22px !important;
+    }
+
+    /* Mobile Styles */
+    @media screen and (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        padding: 10px 15px;
+        gap: 10px;
+      }
+
+      .left-icons {
+        width: 100%;
+        justify-content: space-between;
+        gap: 15px;
+      }
+
+      .icon-container {
+        gap: 4px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .search-container {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0 0 0;
+      }
+
+      .right-icons {
+        gap: 15px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff3e3e;
+        color: white;
+        font-size: 10px;
+        padding: 2px 5px;
+        border-radius: 50%;
+      }
+
+      .navigation {
+        padding: 8px 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .nav-links {
+        gap: 10px;
+        font-size: 12px;
+      }
+
+      .page-title {
+        padding: 20px 15px;
+      }
+
+      .page-title h1 {
+        font-size: 24px;
+      }
+
+      .page-title p {
+        font-size: 12px;
+      }
+
+      .main-content {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+      }
+
+      .filters {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .filter-section {
+        margin-bottom: 15px;
+      }
+
+      .filter-section h3 {
+        font-size: 14px;
+      }
+
+      .filter-option {
+        font-size: 12px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .product-card {
+        padding: 10px;
+      }
+
+      .product-brand {
+        font-size: 12px;
+      }
+
+      .product-name {
+        font-size: 12px;
+      }
+
+      .product-rating {
+        font-size: 10px;
+      }
+
+      .price-container {
+        font-size: 12px;
+      }
+
+      .size-option {
+        padding: 3px 6px;
+        font-size: 10px;
+      }
+
+      .add-to-cart-btn {
+        font-size: 12px;
+        padding: 6px 0;
+      }
+
+      .quick-view-btn {
+        font-size: 10px;
+        padding: 6px 12px;
+      }
+    }
+
+    /* Small Mobile Styles */
+    @media screen and (max-width: 480px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .left-icons {
+        gap: 10px;
+      }
+
+      .icon-container i {
+        font-size: 16px;
+      }
+
+      .icon-container span {
+        font-size: 9px;
+      }
+
+      .nav-links {
+        font-size: 11px;
+      }
+
+      .page-title h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="left-icons">
+      <a href="#" class="icon-container menu-icon-container">
+        <i class="fas fa-bars menu-icon" style="color: #fff; font-size: 20px;"></i>
+        <span>Menu</span>
+      </a>
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" placeholder="Search for products...">
+      <i class="fas fa-search" style="font-size: 18px;"></i>
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+ 
+  <nav class="navigation">
+    <div class="nav-links">
+      <a href="womens_new_arrival.html">New Arrival</a> |
+      <a href="womens_clothing.html" class="active">Clothing</a> |
+      <a href="womens_accessories.html">Accessories</a> |
+      <a href="womens_shoes.html">Shoes</a> |
+      <a href="womens_sale.html">Sale</a>
+    </div>
+  </nav>
+
+  <div class="page-title">
+    <h1>Women's Clothing</h1>
+    <p>Discover our collection of trendy and comfortable women's clothing</p>
+  </div>
+
+  <main class="main-content">
+    <aside class="filters">
+      <div class="filter-section">
+        <h3>Category</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Dresses</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Tops</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Pants</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Skirts</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Outerwear</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Brand</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Zara</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>H&M</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Uniqlo</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Size</h3>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>XS</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>Small</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>Medium</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>Large</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Price Range</h3>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Under ₱500</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱500 - ₱1,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱1,000 - ₱2,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Over ₱2,000</label>
+        </div>
+      </div>
+    </aside>
+
+    <div class="product-grid">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <img src="https://dynamic.zacdn.com/uOcQ_NvBzS95yRfkKJAxYUBWwvA=/filters:quality(70):format(webp)/https://static-ph.zacdn.com/p/mango-4434-4665253-4.jpg" alt="Black Dress" class="product-image">
+        <div class="product-brand">Zara</div>
+        <div class="product-name">Short Dress with Draped Detail</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(124)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱1,995.00</span>
+          <span class="current-price">₱1,495.00</span>
+          <span class="discount">-25%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">XS</span>
+            <span class="size-option">S</span>
+            <span class="size-option">M</span>
+            <span class="size-option">L</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: white;"></span>
+            <span class="color-option" style="background-color: gray;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/zara-draped-dress/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <img src="https://imagescdn.simons.ca/images/6867-215791-2-A1_2/fine-knit-crew-neck-cardigan.jpg?__=49" alt="Cardigan" class="product-image">
+        <div class="product-brand">H&M</div>
+        <div class="product-name">Fine-knit Cardigan</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(89)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱999.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">XS</span>
+            <span class="size-option">S</span>
+            <span class="size-option">M</span>
+            <span class="size-option">L</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: white;"></span>
+            <span class="color-option" style="background-color: gray;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/hm-cardigan/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/455408/item/goods_09_455408.jpg" alt="Wide Pants" class="product-image">
+        <div class="product-brand">Uniqlo</div>
+        <div class="product-name">Women's Smart 2-Way Stretch Pants</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(156)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱1,490.00</span>
+          <span class="current-price">₱990.00</span>
+          <span class="discount">-33%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">XS</span>
+            <span class="size-option">S</span>
+            <span class="size-option">M</span>
+            <span class="size-option">L</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: white;"></span>
+            <span class="color-option" style="background-color: gray;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/uniqlo-stretch-pants/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card">
+        <img src="https://cdn.shopify.com/s/files/1/0554/0718/2011/files/01312673_855.jpg?v=1706612719" alt="Blouse" class="product-image">
+        <div class="product-brand">Zara</div>
+        <div class="product-name">Satin Effect Blouse</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(78)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱1,495.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">XS</span>
+            <span class="size-option">S</span>
+            <span class="size-option">M</span>
+            <span class="size-option">L</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: white;"></span>
+            <span class="color-option" style="background-color: gray;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/zara-satin-blouse/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card">
+        <img src="https://media.karenmillen.com/i/karenmillen/bkk10513_floral_xl?pdp.template" alt="Pleated Skirt" class="product-image">
+        <div class="product-brand">H&M</div>
+        <div class="product-name">Pleated Midi Skirt</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(45)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱1,299.00</span>
+          <span class="current-price">₱899.00</span>
+          <span class="discount">-31%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">XS</span>
+            <span class="size-option">S</span>
+            <span class="size-option">M</span>
+            <span class="size-option">L</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: white;"></span>
+            <span class="color-option" style="background-color: gray;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/hm-pleated-skirt/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card">
+        <img src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450507/item/goods_09_450507.jpg" alt="T-Shirt" class="product-image">
+        <div class="product-brand">Uniqlo</div>
+        <div class="product-name">Women's Soft Cotton T-Shirt</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(234)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱590.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">XS</span>
+            <span class="size-option">S</span>
+            <span class="size-option">M</span>
+            <span class="size-option">L</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: black;"></span>
+            <span class="color-option" style="background-color: white;"></span>
+            <span class="color-option" style="background-color: gray;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/uniqlo-cotton-tshirt/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="privacy_policy.html">Data Collection & Usage</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Returns Policy</a>
+        <a href="#">Payment Methods</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="notification" class="notification"></div>
+
+  <script src="unified_cart.js"></script>
+  <script src="javascript_sidebar.js"></script>
+</body>
+</html> 

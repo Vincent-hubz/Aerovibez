@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kids' Clothing - Streetwear Fashion</title>
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #000;
+      border-bottom: 2px solid #ff3e3e;
+    }
+
+    .left-icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-container span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .icon-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 30px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-container input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      outline: none;
+      color: #333;
+    }
+
+    .search-container i {
+      color: #666;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 25px;
+    }
+
+    /* Navigation */
+    .navigation {
+      background-color: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-links a.active {
+      color: #ff3e3e;
+      font-weight: bold;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 30px 0;
+      background: #fff;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .page-title h1 {
+      font-size: 28px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Main Content */
+    .main-content {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Filters Sidebar */
+    .filters {
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .filter-option {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .filter-option input[type="checkbox"],
+    .filter-option input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 0;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .product-link:hover {
+      text-decoration: none;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .quick-view-btn {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2;
+      text-decoration: none;
+    }
+
+    .add-to-cart-btn {
+      display: block;
+      width: 100%;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 0;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #333;
+    }
+
+    .size-option {
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .size-option.selected {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    .product-brand {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .product-variations {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin: 8px 0;
+    }
+
+    .stars {
+      color: #ffd700;
+      font-size: 14px;
+    }
+
+    .review-count {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .price-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .original-price {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 14px;
+    }
+
+    .current-price {
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .discount {
+      color: #ff3e3e;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      font-size: 12px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+
+    /* Mobile Header Styles */
+    @media screen and (max-width: 768px) {
+      .header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .left-icons {
+        gap: 15px;
+        order: 1;
+      }
+
+      .right-icons {
+        gap: 15px;
+        order: 2;
+      }
+
+      .icon-container {
+        gap: 4px;
+      }
+
+      .icon-container span {
+        font-size: 10px;
+      }
+
+      .icon-container i {
+        font-size: 18px !important;
+      }
+
+      .search-container {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0 0 0;
+        padding: 8px 15px;
+      }
+
+      .search-container input {
+        font-size: 14px;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff3e3e;
+        color: white;
+        font-size: 10px;
+        padding: 2px 5px;
+        border-radius: 50%;
+        min-width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .navigation {
+        padding: 8px 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-links {
+        gap: 10px;
+        font-size: 12px;
+        padding: 0 5px;
+      }
+
+      /* Mobile Product Grid */
+      .main-content {
+        flex-direction: column;
+        padding: 10px;
+        gap: 15px;
+      }
+
+      .filters {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 15px;
+      }
+
+      .filter-section {
+        margin-bottom: 15px;
+      }
+
+      .filter-option {
+        margin: 8px 0;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0;
+      }
+
+      .product-card {
+        padding: 10px;
+        margin: 0;
+      }
+
+      .product-image {
+        height: 140px;
+        object-fit: cover;
+      }
+
+      .product-name {
+        font-size: 12px;
+        margin: 8px 0;
+      }
+
+      .product-brand {
+        font-size: 10px;
+        margin-bottom: 4px;
+      }
+
+      .price-container {
+        font-size: 12px;
+        margin: 6px 0;
+      }
+
+      .add-to-cart-btn {
+        font-size: 12px;
+        padding: 8px 0;
+        margin-top: 8px;
+      }
+
+      .product-variations {
+        margin: 8px 0;
+      }
+
+      .variation-title {
+        font-size: 11px;
+        margin: 4px 0;
+      }
+
+      .size-option {
+        font-size: 11px;
+        padding: 4px 8px;
+      }
+
+      .color-option {
+        width: 16px;
+        height: 16px;
+        margin: 0 4px;
+      }
+
+      .quick-view-btn {
+        font-size: 11px;
+        padding: 6px 12px;
+      }
+
+      .page-title {
+        padding: 20px 15px;
+      }
+
+      .page-title h1 {
+        font-size: 24px;
+      }
+
+      .page-title p {
+        font-size: 13px;
+      }
+    }
+
+    /* Additional mobile optimizations for very small screens */
+    @media screen and (max-width: 360px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card {
+        max-width: 280px;
+        margin: 0 auto;
+      }
+
+      .product-image {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="left-icons">
+      <a href="#" class="icon-container menu-icon-container">
+        <i class="fas fa-bars menu-icon" style="color: #fff; font-size: 20px;"></i>
+        <span>Menu</span>
+      </a>
+      <a href="main_shop.html" class="icon-container">
+        <i class="fas fa-store" style="color: #fff; font-size: 20px;"></i>
+        <span>Shop</span>
+      </a>
+      <a href="blogpage.html" class="icon-container">
+        <i class="fas fa-blog" style="color: #fff; font-size: 20px;"></i>
+        <span>Blog</span>
+      </a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" placeholder="Search for products...">
+      <i class="fas fa-search" style="font-size: 18px;"></i>
+    </div>
+
+    <div class="right-icons">
+      <a href="CART_PAGE.html" class="icon-container">
+        <i class="fas fa-shopping-cart" style="color: #fff; font-size: 20px;"></i>
+        <span>Cart</span>
+        <span class="cart-count">0</span>
+      </a>
+      <a href="account.html" class="icon-container">
+        <i class="fas fa-user" style="color: #fff; font-size: 20px;"></i>
+        <span>Account</span>
+      </a>
+    </div>
+  </header>
+ 
+  <nav class="navigation">
+    <div class="nav-links">
+      <a href="kids_new_arrival.html">New Arrival</a> |
+      <a href="kids_clothing.html" class="active">Clothing</a> |
+      <a href="kids_accessories.html">Accessories</a> |
+      <a href="kids_shoes.html">Shoes</a> |
+      <a href="kids_sale.html">Sale</a>
+    </div>
+  </nav>
+
+  <div class="page-title">
+    <h1>Kids' Clothing</h1>
+    <p>Discover our collection of trendy and comfortable clothing for kids</p>
+  </div>
+
+  <main class="main-content">
+    <aside class="filters">
+      <div class="filter-section">
+        <h3>Category</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>T-Shirts</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Jeans & Pants</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Dresses & Skirts</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Outerwear</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Pajamas</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Brand</h3>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Gap Kids</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>H&M Kids</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Old Navy</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" checked>
+          <label>Carter's</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Size</h3>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>2T</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>3T</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>4T</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>5T</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>4-5Y</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>6-7Y</label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox">
+          <label>8-10Y</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3>Price Range</h3>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Under ₱500</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱500 - ₱1,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>₱1,000 - ₱2,000</label>
+        </div>
+        <div class="filter-option">
+          <input type="radio" name="price">
+          <label>Over ₱2,000</label>
+        </div>
+      </div>
+    </aside>
+
+    <div class="product-grid">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <img src="https://dynamic.zacdn.com/Wy89FaBQU0YLEcTSkXdHXOky_1I=/filters:quality(70):format(webp)/https://static-ph.zacdn.com/p/m-latin-9812-7392813-1.jpg" alt="Kids Graphic Tee" class="product-image">
+        <div class="product-brand">Old Navy</div>
+        <div class="product-name">Graphic Print T-shirt</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(87)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱499.00</span>
+          <span class="current-price">₱399.00</span>
+          <span class="discount">-20%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">3T</span>
+            <span class="size-option">4T</span>
+            <span class="size-option">5T</span>
+            <span class="size-option">6T</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: blue;"></span>
+            <span class="color-option" style="background-color: red;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/oldnavy-kids-tee/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <img src="https://shop.mango.com/assets/rcs/pics/static/T8/fotos/outfit/S/87010629_TG-99999999_01.jpg?imwidth=2048&imdensity=1&ts=1734087871189" alt="Kids Jeans" class="product-image">
+        <div class="product-brand">H&M Kids</div>
+        <div class="product-name">Regular Fit Jeans</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(62)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱799.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">4-5Y</span>
+            <span class="size-option">6-7Y</span>
+            <span class="size-option">8-9Y</span>
+            <span class="size-option">10-12Y</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: blue;"></span>
+            <span class="color-option" style="background-color: red;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/hm-kids-jeans/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <img src="https://lookagain.scene7.com/is/image/OttoUK/466w/kids-floral-print-jersey-dress-by-bonprix~930565FRSP.jpg" alt="Kids Dress" class="product-image">
+        <div class="product-brand">Gap Kids</div>
+        <div class="product-name">Printed Jersey Dress</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(45)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱1,290.00</span>
+          <span class="current-price">₱990.00</span>
+          <span class="discount">-23%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">3Y</span>
+            <span class="size-option">4Y</span>
+            <span class="size-option">5Y</span>
+            <span class="size-option">6Y</span>
+            <span class="size-option">7Y</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: blue;"></span>
+            <span class="color-option" style="background-color: red;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/gap-kids-dress/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card">
+        <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/101f84d6494f4b99b936f70ab409b494_9366/adidas_Z.N.E._Full-Zip_Hooded_Track_Jacket_Kids_Brown_JF8955_21_model.jpg" alt="Kids Jacket" class="product-image">
+        <div class="product-brand">Carter's</div>
+        <div class="product-name">Hooded Zip-Up Jacket</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(67)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱1,495.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">4Y</span>
+            <span class="size-option">5Y</span>
+            <span class="size-option">6Y</span>
+            <span class="size-option">7Y</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: blue;"></span>
+            <span class="color-option" style="background-color: red;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/carters-jacket/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card">
+        <img src="https://littlesleepies.com/cdn/shop/products/pjs-construction-two-piece-bamboo-viscose-pajama-set-2.jpg?v=1700262475&width=1000" alt="Kids Pajamas" class="product-image">
+        <div class="product-brand">Carter's</div>
+        <div class="product-name">2-Piece Cotton Pajamas</div>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span class="review-count">(98)</span>
+        </div>
+        <div class="price-container">
+          <span class="original-price">₱899.00</span>
+          <span class="current-price">₱699.00</span>
+          <span class="discount">-22%</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">2T</span>
+            <span class="size-option">3T</span>
+            <span class="size-option">4T</span>
+            <span class="size-option">5T</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: blue;"></span>
+            <span class="color-option" style="background-color: red;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/carters-pajamas/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card">
+        <img src="https://cdn11.bigcommerce.com/s-ce94a/images/stencil/1500x1500/products/3250/43256/9113-next-level-apparel-youth-hoodie-blankclothing.ca-black_copy__46679.1696350866.jpg?c=2&imbypass=on" alt="Kids Hoodie" class="product-image">
+        <div class="product-brand">Old Navy</div>
+        <div class="product-name">Pullover Hoodie</div>
+        <div class="product-rating">
+          <div class="stars">★★★★☆</div>
+          <span class="review-count">(54)</span>
+        </div>
+        <div class="price-container">
+          <span class="current-price">₱699.00</span>
+        </div>
+        <div class="product-variations">
+          <p class="variation-title">Size:</p>
+          <div class="size-options">
+            <span class="size-option">4Y</span>
+            <span class="size-option">5Y</span>
+            <span class="size-option">6Y</span>
+            <span class="size-option">7Y</span>
+            <span class="size-option">8Y</span>
+          </div>
+          <p class="variation-title">Color:</p>
+          <div class="color-options">
+            <span class="color-option" style="background-color: blue;"></span>
+            <span class="color-option" style="background-color: red;"></span>
+          </div>
+        </div>
+        <div class="buttons-container">
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="buy-now-btn">Buy Now</button>
+        </div>
+        <a href="/products/oldnavy-kids-hoodie/quick-view" class="quick-view-btn">Quick View</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <div class="footer-section">
+        <h4>Privacy Policy</h4>
+        <a href="privacy_policy.html">Data Collection & Usage</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <a href="#">Phone Number</a>
+        <a href="#">Social Media Links</a>
+      </div>
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <a href="#">Mission & Vision</a>
+        <a href="#">Ethics Practices</a>
+      </div>
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <a href="#">Returns Policy</a>
+        <a href="#">Payment Methods</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="notification" class="notification"></div>
+
+  <script src="unified_cart.js"></script>
+  <script src="javascript_sidebar.js"></script>
+</body>
+</html> 
