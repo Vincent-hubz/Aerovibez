@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <i class="fas fa-times close-sidebar"></i>
                 </div>
                 <ul class="sidebar-menu">
-                    <li><a href="homepage1.html">HOME</a></li>
+                    <li><a href="index.html">HOME</a></li>
                     <li><a href="main_shop.html">SHOP</a></li>
                     <li><a href="new_arrival.html">MENS</a></li>
                     <li><a href="womens_new_arrival.html">WOMENS</a></li>
